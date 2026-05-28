@@ -28,7 +28,7 @@
       line-height: 1.6;
       max-width: 480px;
       margin: 0 auto;
-      padding-bottom: 40px;
+      padding-bottom: 60px;
     }
 
     /* ── Header ── */
@@ -37,13 +37,35 @@
       padding: 24px 20px 20px;
       border-bottom: 1px solid var(--border);
     }
-    .header h1 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+    .header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
     .header h1 span { color: var(--accent); }
     .header .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+    /* ── Nav Tabs ── */
+    .nav-tabs {
+      display: flex;
+      background: #111;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-tab {
+      flex: 1;
+      padding: 12px 4px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── Pages ── */
+    .page { display: none; }
+    .page.active { display: block; }
 
     /* ── Countdown ── */
     .countdown-card {
@@ -63,29 +85,14 @@
     /* ── Phase Bar ── */
     .phase-section { margin: 16px 16px 0; }
     .section-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
+      font-size: 12px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
     }
-    .phase-bar {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 16px;
-      border: 1px solid var(--border);
-    }
+    .phase-bar { background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--border); }
     .phases { display: flex; gap: 4px; margin-bottom: 12px; }
     .phase-item {
-      flex: 1;
-      border-radius: 6px;
-      padding: 8px 4px;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 600;
-      opacity: 0.4;
-      transition: opacity 0.2s;
+      flex: 1; border-radius: 6px; padding: 8px 4px; text-align: center;
+      font-size: 11px; font-weight: 600; opacity: 0.35; transition: opacity 0.2s;
     }
     .phase-item.active { opacity: 1; }
     .phase-item.p1 { background: #1e3a5f; color: #5ab4ff; }
@@ -97,179 +104,152 @@
 
     /* ── Cards ── */
     .card {
-      background: var(--card);
-      border-radius: 16px;
-      margin: 12px 16px 0;
-      padding: 16px;
-      border: 1px solid var(--border);
+      background: var(--card); border-radius: 16px;
+      margin: 12px 16px 0; padding: 16px; border: 1px solid var(--border);
     }
     .card-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 16px; font-weight: 700; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
     }
     .card-title .icon { font-size: 18px; }
 
-    /* ── Weekly Assessment ── */
-    .week-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
+    /* ── Assessment ── */
     .assessment-box {
-      background: var(--card2);
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 14px;
-      line-height: 1.7;
-      color: #ddd;
-      border-left: 3px solid var(--accent);
-    }
-    .assessment-box .rating {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      background: var(--card2); border-radius: 10px; padding: 14px;
+      font-size: 14px; line-height: 1.7; color: #ddd; border-left: 3px solid var(--accent);
     }
     .badge {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
+      display: inline-block; padding: 2px 10px; border-radius: 20px;
+      font-size: 12px; font-weight: 700;
     }
     .badge.good { background: #1e3d1e; color: #5aff5a; }
     .badge.ok { background: #3d3a1e; color: #ffda5a; }
     .badge.low { background: #3d1e1e; color: #ff5a5a; }
 
-    /* ── Training Plan ── */
-    .week-schedule { display: flex; flex-direction: column; gap: 8px; }
-    .day-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px;
-      background: var(--card2);
-      border-radius: 10px;
+    /* ── Weekly Plan (user editable) ── */
+    .week-planner { display: flex; flex-direction: column; gap: 8px; }
+    .day-plan-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px; background: var(--card2); border-radius: 10px;
     }
-    .day-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
-      min-width: 28px;
-      padding-top: 2px;
+    .day-plan-label {
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      min-width: 24px; padding-top: 8px; text-align: center;
     }
-    .day-content { flex: 1; }
-    .day-type {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 2px;
+    .day-plan-inputs { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .day-plan-row input[type="text"] {
+      width: 100%; background: #2a2a2a; border: 1px solid var(--border);
+      border-radius: 8px; padding: 7px 10px; font-size: 13px; color: var(--text); outline: none;
     }
-    .day-detail { font-size: 12px; color: var(--muted); }
-    .day-row.rest .day-type { color: var(--muted); }
-    .day-row.hyrox .day-type { color: var(--accent); }
-    .day-row.upper .day-type { color: #5ab4ff; }
-    .day-row.lower .day-type { color: #c97aff; }
-    .day-row.tennis .day-type { color: var(--green); }
-    .day-row.cardio .day-type { color: #ff9a5a; }
+    .day-plan-row input[type="text"]:focus { border-color: var(--accent); }
+    .day-plan-row input::placeholder { color: #555; }
+    .plan-save-btn {
+      width: 100%; margin-top: 10px; padding: 12px;
+      background: var(--accent); color: #000; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+    }
+    .plan-saved-tip { text-align: center; font-size: 12px; color: var(--green); margin-top: 6px; display: none; }
 
-    /* ── Diet ── */
-    .diet-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
-    .diet-tab {
-      flex: 1;
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
+    /* ── Daily Log ── */
+    .today-banner {
+      background: var(--card2); border-radius: 10px; padding: 12px 14px;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
     }
-    .diet-tab.active {
-      background: var(--accent);
-      color: #000;
-      border-color: var(--accent);
+    .today-banner .today-date { font-size: 13px; font-weight: 700; }
+    .today-banner .today-day { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .log-section-title { font-size: 13px; font-weight: 700; color: var(--muted); margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .log-input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .log-input-group label { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+    .log-input-group textarea {
+      background: var(--card2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 10px 12px; font-size: 13px; color: var(--text); outline: none;
+      resize: none; min-height: 64px; font-family: inherit; line-height: 1.5;
     }
-    .diet-panel { display: none; }
-    .diet-panel.active { display: block; }
-    .diet-principle {
-      background: var(--card2);
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 8px;
+    .log-input-group textarea:focus { border-color: var(--accent); }
+    .log-input-group textarea::placeholder { color: #555; }
+    .log-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .log-tag {
+      padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      border: 1px solid var(--border); background: var(--card2); color: var(--muted); cursor: pointer;
     }
-    .diet-principle h4 { font-size: 14px; color: var(--accent); margin-bottom: 6px; }
-    .diet-principle ul { padding-left: 16px; }
-    .diet-principle li { font-size: 13px; color: #ccc; margin-bottom: 4px; }
+    .log-tag.selected { background: var(--accent); color: #000; border-color: var(--accent); }
+    .log-submit-btn {
+      width: 100%; padding: 12px; background: var(--accent); color: #000;
+      border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 4px;
+    }
+    .log-history { margin-top: 16px; }
+    .log-history-title { font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+    .log-entry {
+      background: var(--card2); border-radius: 10px; padding: 12px; margin-bottom: 8px;
+    }
+    .log-entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .log-entry-date { font-size: 12px; font-weight: 700; color: var(--accent); }
+    .log-entry-del { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px; }
+    .log-entry-training { font-size: 13px; margin-bottom: 4px; }
+    .log-entry-food { font-size: 12px; color: #aaa; }
+    .log-entry-type-badge {
+      display: inline-block; padding: 1px 8px; border-radius: 10px;
+      font-size: 11px; font-weight: 700; margin-right: 6px; margin-bottom: 4px;
+    }
+    .tb-hyrox { background:#2a1a00; color:var(--accent); }
+    .tb-upper { background:#1a2a3a; color:#5ab4ff; }
+    .tb-lower { background:#2a1a3a; color:#c97aff; }
+    .tb-tennis { background:#1a3a1a; color:#5aff5a; }
+    .tb-cardio { background:#3a2a1a; color:#ffaa5a; }
+    .tb-rest { background:#2a2a2a; color:#888; }
+
+    /* ── Diet (7-day) ── */
+    .diet-day-nav {
+      display: flex; gap: 4px; margin-bottom: 14px; overflow-x: auto;
+      padding-bottom: 2px; scrollbar-width: none;
+    }
+    .diet-day-nav::-webkit-scrollbar { display: none; }
+    .diet-day-btn {
+      flex-shrink: 0; padding: 7px 12px; border-radius: 20px; border: 1px solid var(--border);
+      background: var(--card2); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .diet-day-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+    .diet-day-btn.today-mark { border-color: var(--accent); color: var(--accent); }
+    .diet-day-panel { display: none; }
+    .diet-day-panel.active { display: block; }
+    .diet-day-type {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 10px; padding: 4px 10px; border-radius: 20px; display: inline-block;
+    }
+    .dtype-hyrox { background:#2a1a00; color:var(--accent); }
+    .dtype-strength { background:#1a2a3a; color:#5ab4ff; }
+    .dtype-tennis { background:#1a3a1a; color:#5aff5a; }
+    .dtype-rest { background:#2a2a2a; color:#888; }
+    .dtype-cardio { background:#3a2a1a; color:#ffaa5a; }
     .meal-card {
-      background: var(--card2);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 8px;
+      background: var(--card2); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
     }
-    .meal-time { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .meal-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .meal-time { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+    .meal-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
     .meal-detail { font-size: 12px; color: #aaa; line-height: 1.5; }
-    .meal-macro {
-      display: flex;
-      gap: 10px;
-      margin-top: 6px;
-    }
-    .macro-tag {
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-weight: 600;
-    }
+    .meal-macro { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+    .macro-tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
     .macro-tag.protein { background: #1e3d5f; color: #5ab4ff; }
     .macro-tag.carb { background: #3d3a1e; color: #ffda5a; }
     .macro-tag.fat { background: #3a1e5f; color: #c97aff; }
+    .diet-tip {
+      background: #1a1a00; border: 1px solid #333300; border-radius: 10px;
+      padding: 10px 12px; font-size: 12px; color: #cccc44; margin-bottom: 8px;
+    }
 
     /* ── Weight ── */
-    .weight-input-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
+    .weight-input-row { display: flex; gap: 8px; margin-bottom: 14px; }
     .weight-input-row input {
-      flex: 1;
-      background: var(--card2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 16px;
-      color: var(--text);
-      outline: none;
+      flex: 1; background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; font-size: 16px; color: var(--text); outline: none;
     }
     .weight-input-row input:focus { border-color: var(--accent); }
     .weight-input-row button {
-      background: var(--accent);
-      color: #000;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 18px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
+      background: var(--accent); color: #000; border: none; border-radius: 10px;
+      padding: 10px 18px; font-size: 14px; font-weight: 700; cursor: pointer;
     }
-    .weight-stats {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-    .weight-stat {
-      flex: 1;
-      background: var(--card2);
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-    }
+    .weight-stats { display: flex; gap: 8px; margin-bottom: 14px; }
+    .weight-stat { flex: 1; background: var(--card2); border-radius: 10px; padding: 10px; text-align: center; }
     .weight-stat .val { font-size: 20px; font-weight: 700; }
     .weight-stat .lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
     .weight-stat .val.down { color: var(--green); }
@@ -277,12 +257,8 @@
     .weight-stat .val.neutral { color: var(--text); }
     .weight-log { max-height: 160px; overflow-y: auto; margin-top: 12px; }
     .weight-log-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px;
     }
     .weight-log-item:last-child { border-bottom: none; }
     .weight-log-item .wdate { color: var(--muted); }
@@ -290,51 +266,30 @@
     .weight-log-item .wdiff { font-size: 12px; }
     .weight-log-item .wdiff.down { color: var(--green); }
     .weight-log-item .wdiff.up { color: var(--red); }
-    .weight-log-item .wdel {
-      background: none;
-      border: none;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 14px;
-      padding: 0 4px;
-    }
+    .weight-log-item .wdel { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 14px; padding: 0 4px; }
     canvas { border-radius: 10px; }
-
-    /* ── HYROX Info ── */
-    .station-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .station-card {
-      background: var(--card2);
-      border-radius: 10px;
-      padding: 10px 12px;
-    }
-    .station-card .s-num { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
-    .station-card .s-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
-    .station-card .s-detail { font-size: 11px; color: #aaa; }
-    .run-info {
-      background: var(--card2);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
-      font-size: 13px;
-      color: #ccc;
-    }
-    .run-info strong { color: var(--text); }
 
     /* ── Target ── */
     .target-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px;
-      background: var(--card2);
-      border-radius: 10px;
-      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px; background: var(--card2); border-radius: 10px; margin-bottom: 8px;
     }
     .target-icon { font-size: 20px; }
     .target-info { flex: 1; }
     .target-name { font-size: 13px; font-weight: 600; }
     .target-val { font-size: 12px; color: var(--accent); font-weight: 700; }
     .target-note { font-size: 11px; color: var(--muted); }
+
+    /* ── Station Guide ── */
+    .station-list { display: flex; flex-direction: column; gap: 8px; }
+    .station-item { background: var(--card2); border-radius: 10px; padding: 12px 14px; }
+    .station-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .station-num { font-size: 11px; color: var(--muted); font-weight: 600; }
+    .station-name { font-size: 14px; font-weight: 700; flex: 1; }
+    .station-std { font-size: 11px; color: var(--accent); font-weight: 600; }
+    .station-tech { font-size: 12px; color: #bbb; margin-bottom: 4px; }
+    .station-train { font-size: 12px; color: #7ecfff; }
+    .station-warn { font-size: 12px; color: #ffcc44; margin-top: 3px; }
 
     /* ── Footer ── */
     .footer { text-align: center; padding: 24px 0 0; color: var(--muted); font-size: 12px; }
@@ -345,562 +300,857 @@
 <!-- Header -->
 <div class="header">
   <h1>🏋️ HYROX <span>备战指南</span></h1>
-  <div class="subtitle">大门 · 男子大众组 · 上海站</div>
+  <div class="subtitle">大门 · 男子大众组 · 上海站 2026.10.31</div>
 </div>
 
-<!-- Countdown -->
-<div class="countdown-card">
-  <div class="label">距离比赛</div>
-  <div class="countdown-nums">
-    <div class="unit"><div class="num" id="cd-days">--</div><div class="uname">天</div></div>
-    <div class="unit"><div class="num" id="cd-hours">--</div><div class="uname">时</div></div>
-    <div class="unit"><div class="num" id="cd-mins">--</div><div class="uname">分</div></div>
-  </div>
-  <div class="race-info">📍 2026年10月31日 · 上海站</div>
+<!-- Nav -->
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="switchPage('home', this)">🏠 总览</div>
+  <div class="nav-tab" onclick="switchPage('log', this)">📝 打卡</div>
+  <div class="nav-tab" onclick="switchPage('plan', this)">📅 计划</div>
+  <div class="nav-tab" onclick="switchPage('diet', this)">🥗 饮食</div>
+  <div class="nav-tab" onclick="switchPage('weight', this)">⚖️ 体重</div>
 </div>
 
-<!-- Training Phase -->
-<div class="phase-section">
-  <div class="section-title">训练阶段</div>
-  <div class="phase-bar">
-    <div class="phases">
-      <div class="phase-item p1" id="ph1">基础期<br><small>5-6月</small></div>
-      <div class="phase-item p2" id="ph2">力量期<br><small>7-8月</small></div>
-      <div class="phase-item p3" id="ph3">专项期<br><small>9-10月</small></div>
-      <div class="phase-item p4" id="ph4">赛前<br><small>10月末</small></div>
+<!-- ════════════ PAGE: HOME ════════════ -->
+<div class="page active" id="page-home">
+
+  <div class="countdown-card">
+    <div class="label">距离比赛</div>
+    <div class="countdown-nums">
+      <div class="unit"><div class="num" id="cd-days">--</div><div class="uname">天</div></div>
+      <div class="unit"><div class="num" id="cd-hours">--</div><div class="uname">时</div></div>
+      <div class="unit"><div class="num" id="cd-mins">--</div><div class="uname">分</div></div>
     </div>
-    <div class="phase-desc" id="phase-desc">加载中...</div>
+    <div class="race-info">📍 2026年10月31日 · 上海站</div>
   </div>
+
+  <div class="phase-section">
+    <div class="section-title">当前训练阶段</div>
+    <div class="phase-bar">
+      <div class="phases">
+        <div class="phase-item p1" id="ph1">基础期<br><small>5-6月</small></div>
+        <div class="phase-item p2" id="ph2">力量期<br><small>7-8月</small></div>
+        <div class="phase-item p3" id="ph3">专项期<br><small>9-10月</small></div>
+        <div class="phase-item p4" id="ph4">赛前<br><small>10月末</small></div>
+      </div>
+      <div class="phase-desc" id="phase-desc">加载中...</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span>本周训练评估</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px" id="week-label-home">第1周</div>
+    <div class="assessment-box">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span>整体评分</span>
+        <span class="badge ok" id="assess-badge">待更新</span>
+      </div>
+      <div id="assess-text">🔄 告诉小门本周训练情况，评估将显示在这里。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span>赛前目标</div>
+    <div class="target-row">
+      <div class="target-icon">⏱️</div>
+      <div class="target-info">
+        <div class="target-name">完赛时间</div>
+        <div class="target-val">90-100 分钟</div>
+        <div class="target-note">男子大众组中等水平</div>
+      </div>
+    </div>
+    <div class="target-row">
+      <div class="target-icon">🏃</div>
+      <div class="target-info">
+        <div class="target-name">跑步配速</div>
+        <div class="target-val">5:30-6:00 /km</div>
+        <div class="target-note">全程8km均匀分配体力</div>
+      </div>
+    </div>
+    <div class="target-row">
+      <div class="target-icon">⚖️</div>
+      <div class="target-info">
+        <div class="target-name">赛前体重</div>
+        <div class="target-val">78-79 kg</div>
+        <div class="target-note">减重约1-2kg，提高相对力量</div>
+      </div>
+    </div>
+    <div class="target-row">
+      <div class="target-icon">💪</div>
+      <div class="target-info">
+        <div class="target-name">有氧基础</div>
+        <div class="target-val">10km &lt; 60min</div>
+        <div class="target-note">9月底前达到</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Station Guide -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🏁</span>8站备战要点</div>
+    <div class="station-list">
+
+      <div class="station-item">
+        <div class="station-header">
+          <span class="station-num">站1</span>
+          <span class="station-name">SkiErg 划雪机</span>
+          <span class="station-std">1000m</span>
+        </div>
+        <div class="station-tech">⚙️ 技术：髋屈发力为主，手臂传导，非手臂主导拉——新手需练2-5小时才有感觉</div>
+        <div class="station-train">🏋️ 训练：HYROX课重点熟悉，配速约5分钟内完成，不要冲太快</div>
+        <div class="station-warn">⚠️ 容易踩坑：用手臂拉导致上肢早早力竭，后面7站都会很难受</div>
+      </div>
+
+      <div class="station-item">
+        <div class="station-header">
+          <span class="station-num">站2</span>
+          <span class="station-name">Sled Push 推雪橇</span>
+          <span class="station-std">50m（男子125kg）</span>
+        </div>
+        <div class="station-tech">⚙️ 技术：身体前倾屈髋，前脚掌落地，整个手臂面接触把手，别直臂推</div>
+        <div class="station-train">🏋️ 训练：下肢私教加入深蹲/腿推直接对应，有条件找有雪橇的健身房练</div>
+        <div class="station-warn">⚠️ 静止启动最费力，中途停下再启动很耗体力，单程12.5m尽量不停</div>
+      </div>
+
+      <div class="station-item">
+        <div class="station-header">
+          <span class="station-num">站3</span>
+          <span class="station-name">Sled Pull 拉雪橇</span>
+          <span class="station-std">50m</span>
+        </div>
+        <div class="station-tech">⚙️ 技术：大幅屈髋发力，伸髋主导，上肢协同，单次尽量拉长距离</div>
+        <div class="station-train">🏋️ 训练：与硬拉高度相关，下肢私教重点加强——这一站比推雪橇更累</div>
+        <div class="station-warn">⚠️ 比推更耗力，放在站2之后体力已有消耗，配速策略要稳</div>
+      </div>
+
+      <div class="station-item">
+        <div class="station-header">
+          <span class="station-num">站4</span>
+          <span class="station-name">Burpee Broad Jump</span>
+          <span class="station-std">80m</span>
+        </div>
+        <div class="station-tech">⚙️ 技术：俯身跳远，节奏稳定比爆发快更重要，每跳约1.2-1.5m</div>
+        <div class="station-train">🏋️ 训练：HYROX课必练，平均需要约55-65次跳完80m</div>
+        <div class="station-warn">⚠️ 最消耗体力的站之一，前面跑了4km再做，心率会猛冲——呼吸节奏关键</div>
+      </div>
+
+      <div class="station-item">
+        <div class="station-header">
+          <span class="station-num">站5</span>
+          <span class="station-name">Rowing 划船机</span>
+          <span class="station-std">1000m</span>
+        </div>
+        <div class="station-tech">⚙️ 技术：腿-身-手顺序发力，回程手-身-腿，节奏比力量更重要</div>
+        <div class="station-train">🏋️ 训练：HYROX课有划船最好，目标约4:30-5:00完成1000m</div>
+        <div class="station-warn">⚠️ 做完波比跳远直接上划船，心率极高，前30秒先稳住节奏再提速</div>
+      </div>
+
+      <div class="station-item">
+        <div class="station-header">
+          <span class="station-num">站6</span>
+          <span class="station-name">Farmers Carry</span>
+          <span class="station-std">200m（男子2×24kg）</span>
+        </div>
+        <div class="station-tech">⚙️ 技术：抬头挺胸，核心收紧，步伐稳定，不要晃动</div>
+        <div class="station-train">🏋️ 训练：上肢私教可加入哑铃行走，这站相对容易，是后半程喘气站</div>
+        <div class="station-warn">⚠️ 握力疲劳时容易松脱，做完前5站手已经很累，换握姿势调节</div>
+      </div>
+
+      <div class="station-item">
+        <div class="station-header">
+          <span class="station-num">站7</span>
+          <span class="station-name">Sandbag Lunges</span>
+          <span class="station-std">100m（男子20kg）</span>
+        </div>
+        <div class="station-tech">⚙️ 技术：沙袋扛肩，弓步行进，前脚落地不要超过脚尖太多，核心稳定</div>
+        <div class="station-train">🏋️ 训练：下肢私教加入负重弓步行走，大腿耐力是关键</div>
+        <div class="station-warn">⚠️ 腿在前7km已经很疲劳，下坡/坡道会更难——100m约80-90步</div>
+      </div>
+
+      <div class="station-item">
+        <div class="station-header">
+          <span class="station-num">站8</span>
+          <span class="station-name">Wall Balls</span>
+          <span class="station-std">100次（男子6kg，目标高度3m）</span>
+        </div>
+        <div class="station-tech">⚙️ 技术：深蹲起立+推球，连贯节奏，别憋气，10-15个一组休息</div>
+        <div class="station-train">🏋️ 训练：HYROX课必练，目标能不停地做30个以上</div>
+        <div class="station-warn">⚠️ 最后一站，全身已疲惫，但也是最后的机会——可以拼尽全力</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">🦞 小门制作 · 有问题随时告诉我</div>
 </div>
 
-<!-- Weekly Assessment -->
-<div class="card">
-  <div class="card-title"><span class="icon">📋</span>本周训练评估</div>
-  <div class="week-label" id="week-label">第1周</div>
-  <div class="assessment-box">
-    <div class="rating">
-      <span>整体评分</span>
-      <span class="badge ok" id="assess-badge">待更新</span>
-    </div>
-    <div id="assess-text">
-      🔄 本周训练数据待更新。大门告知本周训练情况后，评估将显示在这里。
-    </div>
-  </div>
-</div>
+<!-- ════════════ PAGE: LOG (每日打卡) ════════════ -->
+<div class="page" id="page-log">
+  <div style="padding: 16px 16px 0">
 
-<!-- Weekly Training Plan -->
-<div class="card">
-  <div class="card-title"><span class="icon">📅</span>本周训练安排</div>
-  <div class="week-schedule">
-    <div class="day-row upper">
-      <div class="day-label">一</div>
-      <div class="day-content">
-        <div class="day-type">💪 上肢私教</div>
-        <div class="day-detail">推拉训练 + 核心稳定 · 1小时</div>
+    <div class="today-banner">
+      <div style="font-size:28px">📝</div>
+      <div>
+        <div class="today-date" id="today-date-label">今天</div>
+        <div class="today-day" id="today-day-label">加载中...</div>
       </div>
     </div>
-    <div class="day-row tennis">
-      <div class="day-label">二</div>
-      <div class="day-content">
-        <div class="day-type">🎾 网球</div>
-        <div class="day-detail">有氧基础 + 协调性 · 1小时</div>
-      </div>
-    </div>
-    <div class="day-row lower">
-      <div class="day-label">三</div>
-      <div class="day-content">
-        <div class="day-type">🦵 下肢私教</div>
-        <div class="day-detail">深蹲/硬拉/单腿动作 · 1小时</div>
-      </div>
-    </div>
-    <div class="day-row cardio">
-      <div class="day-label">四</div>
-      <div class="day-content">
-        <div class="day-type">🏃 有氧补充</div>
-        <div class="day-detail">Zone 2 跑步 30-40分钟（可选）</div>
-      </div>
-    </div>
-    <div class="day-row hyrox">
-      <div class="day-label">五</div>
-      <div class="day-content">
-        <div class="day-type">⚡ HYROX专项训练</div>
-        <div class="day-detail">器械练习 + 跑步结合 · 1小时</div>
-      </div>
-    </div>
-    <div class="day-row tennis">
-      <div class="day-label">六</div>
-      <div class="day-content">
-        <div class="day-type">🎾 网球（可选）</div>
-        <div class="day-detail">活动恢复 · 1小时</div>
-      </div>
-    </div>
-    <div class="day-row rest">
-      <div class="day-label">日</div>
-      <div class="day-content">
-        <div class="day-type">😴 休息 / 拉伸</div>
-        <div class="day-detail">泡沫轴 + 静态拉伸 15分钟</div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Diet -->
-<div class="card">
-  <div class="card-title"><span class="icon">🥗</span>饮食指南</div>
-  <div class="diet-tabs">
-    <button class="diet-tab active" onclick="switchDiet('principle', this)">大原则</button>
-    <button class="diet-tab" onclick="switchDiet('meals', this)">每日饮食</button>
-    <button class="diet-tab" onclick="switchDiet('training', this)">训练日</button>
-  </div>
+    <!-- Training Type -->
+    <div class="log-section-title">今天练了什么</div>
+    <div class="log-tags" id="training-type-tags">
+      <div class="log-tag" data-val="hyrox" onclick="toggleTag(this)">⚡ HYROX专项</div>
+      <div class="log-tag" data-val="upper" onclick="toggleTag(this)">💪 上肢私教</div>
+      <div class="log-tag" data-val="lower" onclick="toggleTag(this)">🦵 下肢私教</div>
+      <div class="log-tag" data-val="tennis" onclick="toggleTag(this)">🎾 网球</div>
+      <div class="log-tag" data-val="cardio" onclick="toggleTag(this)">🏃 有氧跑步</div>
+      <div class="log-tag" data-val="rest" onclick="toggleTag(this)">😴 休息</div>
+    </div>
 
-  <!-- 大原则 -->
-  <div class="diet-panel active" id="diet-principle">
-    <div class="diet-principle">
-      <h4>🎯 目标：维持体重+增肌减脂</h4>
-      <ul>
-        <li>183cm/80kg，BMI正常，无需大幅减重</li>
-        <li>每日热量：<strong>2200-2500 kcal</strong></li>
-        <li>蛋白质优先：<strong>每日 130-150g</strong>（约体重×1.7g）</li>
-        <li>碳水跟着训练走：训练日多吃，休息日少吃</li>
-        <li>脂肪不要刻意减，保持正常摄入</li>
-        <li>赛前2周：体重控制在 <strong>78-79kg</strong></li>
-      </ul>
+    <!-- Training Detail -->
+    <div class="log-input-group">
+      <label>训练详情（可选）</label>
+      <textarea id="log-training-detail" placeholder="例：HYROX课，SkiErg练了3组×500m，配速5:20，跑步2km热身。感觉心率控制还行。"></textarea>
     </div>
-    <div class="diet-principle">
-      <h4>📋 外卖/食堂选餐原则</h4>
-      <ul>
-        <li>主食选米饭/杂粮饭，避免炒饭炒面</li>
-        <li>蛋白质：鸡胸/牛肉/鱼/蛋，每餐1个拳头大</li>
-        <li>蔬菜：每餐至少1份，优先清炒/蒸</li>
-        <li>汤不喝（含盐高），饮料选白开水/无糖</li>
-        <li>奶茶零食不禁，但每周≤2次</li>
-        <li>睡前2小时不吃正餐（水果/蛋白质零食可以）</li>
-      </ul>
-    </div>
-  </div>
 
-  <!-- 每日饮食 -->
-  <div class="diet-panel" id="diet-meals">
-    <div class="meal-card">
-      <div class="meal-time">早餐 07:30-08:30</div>
-      <div class="meal-name">公司食堂 / 便利店早餐</div>
-      <div class="meal-detail">
-        鸡蛋 2个 + 全麦面包/杂粮粥<br>
-        无糖豆浆 1杯（外卖：瑞幸拿铁无糖也行）
-      </div>
-      <div class="meal-macro">
-        <span class="macro-tag protein">蛋白质 20g</span>
-        <span class="macro-tag carb">碳水 35g</span>
-      </div>
+    <!-- Food -->
+    <div class="log-section-title">今天吃了什么</div>
+    <div class="log-input-group">
+      <label>早餐</label>
+      <textarea id="log-breakfast" placeholder="例：公司食堂 鸡蛋2个+杂粮粥+豆浆" style="min-height:48px"></textarea>
     </div>
-    <div class="meal-card">
-      <div class="meal-time">午餐 12:00-13:00</div>
-      <div class="meal-name">食堂/外卖 · 快手选法</div>
-      <div class="meal-detail">
-        米饭1碗 + 鸡胸/牛肉/鱼 1份 + 蔬菜1份<br>
-        外卖推荐：沙拉（加鸡蛋/鸡胸）、黄焖鸡（去皮）、蒸鱼饭
-      </div>
-      <div class="meal-macro">
-        <span class="macro-tag protein">蛋白质 35g</span>
-        <span class="macro-tag carb">碳水 60g</span>
-        <span class="macro-tag fat">脂肪 15g</span>
-      </div>
+    <div class="log-input-group">
+      <label>午餐</label>
+      <textarea id="log-lunch" placeholder="例：外卖 黄焖鸡米饭（去皮），加了一份青菜" style="min-height:48px"></textarea>
     </div>
-    <div class="meal-card">
-      <div class="meal-time">下午茶 15:30</div>
-      <div class="meal-name">蛋白质零食（重要！）</div>
-      <div class="meal-detail">
-        希腊酸奶 1杯 或 坚果30g+水果<br>
-        训练前2-3h吃：香蕉1根或能量棒1条
-      </div>
-      <div class="meal-macro">
-        <span class="macro-tag protein">蛋白质 15g</span>
-        <span class="macro-tag carb">碳水 20g</span>
-      </div>
+    <div class="log-input-group">
+      <label>晚餐</label>
+      <textarea id="log-dinner" placeholder="例：外卖 麻辣烫（蔬菜多，少汤底）+ 鸡蛋2个" style="min-height:48px"></textarea>
     </div>
-    <div class="meal-card">
-      <div class="meal-time">晚餐 18:30-19:30</div>
-      <div class="meal-name">外卖轻食为主</div>
-      <div class="meal-detail">
-        蛋白质1份（鸡蛋/虾/鸡肉）+ 蔬菜1-2份 + 少量主食<br>
-        外卖推荐：麻辣烫（少汤底）、烤鱼、水煮蛋面
-      </div>
-      <div class="meal-macro">
-        <span class="macro-tag protein">蛋白质 40g</span>
-        <span class="macro-tag carb">碳水 40g</span>
-        <span class="macro-tag fat">脂肪 15g</span>
-      </div>
+    <div class="log-input-group">
+      <label>零食 / 其他</label>
+      <textarea id="log-snack" placeholder="例：下午希腊酸奶1杯，训练后蛋白粉1勺" style="min-height:40px"></textarea>
     </div>
-    <div class="meal-card">
-      <div class="meal-time">睡前（可选）</div>
-      <div class="meal-name">慢蛋白补充</div>
-      <div class="meal-detail">
-        希腊酸奶 150g 或 低脂牛奶 250ml<br>
-        促进夜间肌肉合成
-      </div>
-      <div class="meal-macro">
-        <span class="macro-tag protein">蛋白质 15g</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- 训练日特别策略 -->
-  <div class="diet-panel" id="diet-training">
-    <div class="diet-principle">
-      <h4>⚡ HYROX训练日（最重要）</h4>
-      <ul>
-        <li><strong>训练前2-3h</strong>：正常午/晚餐，主食量+50%</li>
-        <li><strong>训练前30min</strong>：香蕉1根 或 能量胶1包</li>
-        <li><strong>训练中</strong>：运动饮料/电解质水（超60min必须补）</li>
-        <li><strong>训练后30min内</strong>：蛋白粉1勺+香蕉，或鸡蛋2个+米饭</li>
-        <li><strong>训练后正餐</strong>：蛋白质加量到50g+，碳水正常</li>
-      </ul>
-    </div>
-    <div class="diet-principle">
-      <h4>💪 私教训练日</h4>
-      <ul>
-        <li>同HYROX日策略，重点是训练后蛋白质摄入</li>
-        <li>上肢日：可补充鱼油/维生素C帮助恢复</li>
-        <li>下肢日：训练后较疲劳，碳水可稍多（+1碗米饭）</li>
-      </ul>
-    </div>
-    <div class="diet-principle">
-      <h4>🎾 网球日</h4>
-      <ul>
-        <li>强度适中，饮食正常即可</li>
-        <li>注意补水，1小时至少500ml</li>
-        <li>网球后可作为恢复日：蛋白质正常，碳水稍减</li>
-      </ul>
-    </div>
-    <div class="diet-principle">
-      <h4>😴 休息日</h4>
-      <ul>
-        <li>热量可减少200-300kcal</li>
-        <li>碳水减少，蛋白质保持</li>
-        <li>多喝水，蔬菜量可增加</li>
-      </ul>
-    </div>
-  </div>
-</div>
+    <button class="log-submit-btn" onclick="submitLog()">✅ 保存今天的记录</button>
 
-<!-- Weight Tracker -->
-<div class="card">
-  <div class="card-title"><span class="icon">⚖️</span>体重记录</div>
-  <div class="weight-input-row">
-    <input type="number" id="weight-input" placeholder="输入体重 (kg)" step="0.1" min="50" max="120" />
-    <button onclick="addWeight()">记录</button>
-  </div>
-  <div class="weight-stats">
-    <div class="weight-stat">
-      <div class="val neutral" id="w-current">--</div>
-      <div class="lbl">当前 (kg)</div>
-    </div>
-    <div class="weight-stat">
-      <div class="val neutral" id="w-start">80.0</div>
-      <div class="lbl">起始 (kg)</div>
-    </div>
-    <div class="weight-stat">
-      <div class="val neutral" id="w-change">--</div>
-      <div class="lbl">变化 (kg)</div>
-    </div>
-    <div class="weight-stat">
-      <div class="val" style="color:var(--accent)" id="w-target">78-79</div>
-      <div class="lbl">目标 (kg)</div>
-    </div>
-  </div>
-  <canvas id="weight-chart" height="160"></canvas>
-  <div class="weight-log" id="weight-log"></div>
-</div>
-
-<!-- HYROX Race Info -->
-<div class="card">
-  <div class="card-title"><span class="icon">🏁</span>HYROX 赛程说明</div>
-  <div class="run-info">
-    比赛格式：<strong>1km跑步 × 8组</strong> + <strong>8个功能训练站</strong>，交替进行，共跑 8km<br>
-    <span style="color:var(--muted);font-size:12px">目标完赛时间：90-100分钟（男子大众组中等水平）</span>
-  </div>
-  <div class="station-grid">
-    <div class="station-card">
-      <div class="s-num">站 1</div>
-      <div class="s-name">SkiErg</div>
-      <div class="s-detail">划雪机 1000m<br>核心+上肢耐力</div>
-    </div>
-    <div class="station-card">
-      <div class="s-num">站 2</div>
-      <div class="s-name">Sled Push</div>
-      <div class="s-detail">推雪橇 50m<br>腿部爆发力</div>
-    </div>
-    <div class="station-card">
-      <div class="s-num">站 3</div>
-      <div class="s-name">Sled Pull</div>
-      <div class="s-detail">拉雪橇 50m<br>后链发力</div>
-    </div>
-    <div class="station-card">
-      <div class="s-num">站 4</div>
-      <div class="s-name">Burpee Broad Jump</div>
-      <div class="s-detail">俯身跳远 80m<br>全身爆发+耐力</div>
-    </div>
-    <div class="station-card">
-      <div class="s-num">站 5</div>
-      <div class="s-name">Rowing</div>
-      <div class="s-detail">划船机 1000m<br>全身有氧耐力</div>
-    </div>
-    <div class="station-card">
-      <div class="s-num">站 6</div>
-      <div class="s-name">Farmers Carry</div>
-      <div class="s-detail">负重行走 200m<br>握力+核心</div>
-    </div>
-    <div class="station-card">
-      <div class="s-num">站 7</div>
-      <div class="s-name">Sandbag Lunges</div>
-      <div class="s-detail">沙袋弓步 100m<br>腿部耐力</div>
-    </div>
-    <div class="station-card">
-      <div class="s-num">站 8</div>
-      <div class="s-name">Wall Balls</div>
-      <div class="s-detail">药球墙球 100次<br>全身协调爆发</div>
+    <!-- History -->
+    <div class="log-history">
+      <div class="log-history-title">最近记录</div>
+      <div id="log-history-list"></div>
     </div>
   </div>
 </div>
 
-<!-- Targets -->
-<div class="card">
-  <div class="card-title"><span class="icon">🎯</span>赛前目标</div>
-  <div class="target-row">
-    <div class="target-icon">⏱️</div>
-    <div class="target-info">
-      <div class="target-name">完赛时间</div>
-      <div class="target-val">90-100 分钟</div>
-      <div class="target-note">男子大众组中等水平</div>
+<!-- ════════════ PAGE: PLAN (本周计划) ════════════ -->
+<div class="page" id="page-plan">
+  <div style="padding: 16px 16px 0">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+      自己填写本周每天的训练安排，保存后小门帮你评估。
     </div>
-  </div>
-  <div class="target-row">
-    <div class="target-icon">🏃</div>
-    <div class="target-info">
-      <div class="target-name">跑步配速</div>
-      <div class="target-val">5:30-6:00 /km</div>
-      <div class="target-note">全程8km，需均匀分配体力</div>
+
+    <div class="week-planner" id="week-planner">
+      <!-- 动态生成 -->
     </div>
-  </div>
-  <div class="target-row">
-    <div class="target-icon">⚖️</div>
-    <div class="target-info">
-      <div class="target-name">赛前体重</div>
-      <div class="target-val">78-79 kg</div>
-      <div class="target-note">减重约1-2kg，提高相对力量</div>
-    </div>
-  </div>
-  <div class="target-row">
-    <div class="target-icon">💪</div>
-    <div class="target-info">
-      <div class="target-name">有氧基础</div>
-      <div class="target-val">连续跑 10km &lt; 60min</div>
-      <div class="target-note">9月底前达到</div>
+
+    <button class="plan-save-btn" onclick="savePlan()">💾 保存本周计划</button>
+    <div class="plan-saved-tip" id="plan-saved-tip">✅ 已保存！</div>
+
+    <!-- 小门评估区 -->
+    <div class="card" style="margin: 16px 0 0">
+      <div class="card-title"><span class="icon">🦞</span>小门评估</div>
+      <div class="assessment-box">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span>本周评分</span>
+          <span class="badge ok" id="assess-badge-plan">待更新</span>
+        </div>
+        <div id="assess-text-plan">填好本周计划后告诉小门，评估会更新在这里。</div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="footer">🦞 小门制作 · 随时告诉我本周训练情况</div>
+<!-- ════════════ PAGE: DIET (7天饮食) ════════════ -->
+<div class="page" id="page-diet">
+  <div style="padding: 16px 16px 0">
+
+    <div style="font-size:13px;color:var(--muted);margin-bottom:12px">
+      7天不重样，全部外卖/食堂可实现。今天高亮显示。
+    </div>
+
+    <div class="diet-day-nav" id="diet-day-nav">
+      <button class="diet-day-btn" data-day="0" onclick="switchDietDay(0,this)">周一</button>
+      <button class="diet-day-btn" data-day="1" onclick="switchDietDay(1,this)">周二</button>
+      <button class="diet-day-btn" data-day="2" onclick="switchDietDay(2,this)">周三</button>
+      <button class="diet-day-btn" data-day="3" onclick="switchDietDay(3,this)">周四</button>
+      <button class="diet-day-btn" data-day="4" onclick="switchDietDay(4,this)">周五</button>
+      <button class="diet-day-btn" data-day="5" onclick="switchDietDay(5,this)">周六</button>
+      <button class="diet-day-btn" data-day="6" onclick="switchDietDay(6,this)">周日</button>
+    </div>
+
+    <!-- 周一：上肢私教日 -->
+    <div class="diet-day-panel" id="diet-day-0">
+      <span class="diet-day-type dtype-strength">💪 上肢私教日</span>
+      <div class="diet-tip">💡 训练日：碳水正常，训练后30min内补蛋白质</div>
+      <div class="meal-card">
+        <div class="meal-time">早餐 07:30</div>
+        <div class="meal-name">鸡蛋三明治 + 燕麦杯</div>
+        <div class="meal-detail">便利店：全麦三明治（鸡蛋+生菜）1个 + 即食燕麦杯1个<br>或食堂：荷包蛋2个 + 杂粮馒头1个</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白25g</span><span class="macro-tag carb">碳水45g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">午餐 12:00</div>
+        <div class="meal-name">食堂：鸡腿饭</div>
+        <div class="meal-detail">去皮鸡腿1个 + 米饭1碗 + 炒青菜1份<br>外卖替代：黄焖鸡米饭（去皮，米饭小份）</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白38g</span><span class="macro-tag carb">碳水60g</span><span class="macro-tag fat">脂15g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">下午 15:30（训练前2h）</div>
+        <div class="meal-name">香蕉 + 希腊酸奶</div>
+        <div class="meal-detail">香蕉1根 + 无糖希腊酸奶1杯（市售：卡士/简爱）<br>便利店都有，提前备好</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白15g</span><span class="macro-tag carb">碳水30g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">训练后30min内</div>
+        <div class="meal-name">蛋白质快速补充</div>
+        <div class="meal-detail">蛋白粉1勺（有的话）或便利店鸡蛋2个+牛奶1盒<br>这一步不能省，影响肌肉合成</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白25g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">晚餐 19:00</div>
+        <div class="meal-name">外卖：蒸鱼 / 水煮虾</div>
+        <div class="meal-detail">外卖点：蒸鲈鱼饭 或 白灼虾+米饭小份+蔬菜<br>食堂：鱼+青菜+少量米饭</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白45g</span><span class="macro-tag carb">碳水35g</span><span class="macro-tag fat">脂10g</span></div>
+      </div>
+    </div>
+
+    <!-- 周二：网球日 -->
+    <div class="diet-day-panel" id="diet-day-1">
+      <span class="diet-day-type dtype-tennis">🎾 网球日</span>
+      <div class="diet-tip">💡 中等强度：饮食正常，重点补水，运动中至少500ml</div>
+      <div class="meal-card">
+        <div class="meal-time">早餐 07:30</div>
+        <div class="meal-name">豆浆油条（去油）/ 皮蛋瘦肉粥</div>
+        <div class="meal-detail">食堂：皮蛋瘦肉粥1碗 + 茶叶蛋2个<br>外卖：无糖豆浆1杯 + 全麦面包2片</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白20g</span><span class="macro-tag carb">碳水40g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">午餐 12:00</div>
+        <div class="meal-name">外卖：沙拉碗（加鸡胸）</div>
+        <div class="meal-detail">沙拉外卖：牛油果鸡胸沙拉 + 全麦面包1片<br>品牌参考：沙野/好色派/超级碗<br>食堂替代：牛肉+蔬菜+半碗米饭</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白35g</span><span class="macro-tag carb">碳水30g</span><span class="macro-tag fat">脂15g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">网球前30min</div>
+        <div class="meal-name">小补一下</div>
+        <div class="meal-detail">能量棒1条 或 饼干2-3片 + 水<br>别空腹打球</div>
+        <div class="meal-macro"><span class="macro-tag carb">碳水20g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">晚餐 19:00</div>
+        <div class="meal-name">外卖：麻辣烫（轻量版）</div>
+        <div class="meal-detail">点法：蔬菜为主（菠菜/豆腐/木耳）+ 牛肉/虾丸2份<br>不要骨汤底，选清汤 + 少量宽粉/面条<br>参考：杨国福/张亮，自己组合</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白30g</span><span class="macro-tag carb">碳水35g</span><span class="macro-tag fat">脂10g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">睡前</div>
+        <div class="meal-name">牛奶 / 酸奶</div>
+        <div class="meal-detail">低脂纯牛奶250ml 或 无糖酸奶150g<br>促进夜间肌肉恢复</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白12g</span></div>
+      </div>
+    </div>
+
+    <!-- 周三：下肢私教日 -->
+    <div class="diet-day-panel" id="diet-day-2">
+      <span class="diet-day-type dtype-strength">🦵 下肢私教日</span>
+      <div class="diet-tip">💡 下肢训练最累，碳水可多半碗，训练后必须补蛋白</div>
+      <div class="meal-card">
+        <div class="meal-time">早餐 07:30</div>
+        <div class="meal-name">蛋炒饭（食堂）/ 肉松面包</div>
+        <div class="meal-detail">食堂：荷包蛋2个 + 白粥1碗 + 花卷1个<br>便利店：肉松面包1个 + 茶叶蛋2个 + 无糖豆浆</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白22g</span><span class="macro-tag carb">碳水50g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">午餐 12:00</div>
+        <div class="meal-name">外卖：牛肉盖饭 / 猪脚饭</div>
+        <div class="meal-detail">外卖：黑椒牛肉饭 或 卤肉饭（米饭正常份）<br>食堂：红烧牛肉 + 米饭1碗 + 蔬菜<br>今天腿练很累，碳水可以多一点</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白40g</span><span class="macro-tag carb">碳水70g</span><span class="macro-tag fat">脂18g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">下午 15:30（训练前2h）</div>
+        <div class="meal-name">香蕉2根 + 坚果</div>
+        <div class="meal-detail">香蕉2根（提供快速碳水）+ 混合坚果一小把<br>下肢训练能量消耗大，不要空腹去</div>
+        <div class="meal-macro"><span class="macro-tag carb">碳水40g</span><span class="macro-tag fat">脂8g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">训练后30min</div>
+        <div class="meal-name">蛋白质补充（必须）</div>
+        <div class="meal-detail">蛋白粉1勺 或 鸡蛋3个+牛奶<br>腿部训练后肌肉合成窗口重要</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白30g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">晚餐 19:30</div>
+        <div class="meal-name">外卖：烤鸡腿 + 蔬菜</div>
+        <div class="meal-detail">外卖：烤鸡腿饭（去皮）或 食堂简餐<br>今天训练量大，晚餐蛋白质要补足<br>不用刻意减碳水，半碗米饭正常</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白45g</span><span class="macro-tag carb">碳水40g</span><span class="macro-tag fat">脂15g</span></div>
+      </div>
+    </div>
+
+    <!-- 周四：有氧/休息日 -->
+    <div class="diet-day-panel" id="diet-day-3">
+      <span class="diet-day-type dtype-cardio">🏃 轻有氧/休息日</span>
+      <div class="diet-tip">💡 非训练日：热量减少200kcal，碳水稍减，蛋白质保持</div>
+      <div class="meal-card">
+        <div class="meal-time">早餐 07:30</div>
+        <div class="meal-name">粥 + 蛋</div>
+        <div class="meal-detail">食堂：皮蛋瘦肉粥1碗 + 白煮蛋2个<br>外卖：无糖豆浆 + 鸡蛋三明治（小份）</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白20g</span><span class="macro-tag carb">碳水30g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">午餐 12:00</div>
+        <div class="meal-name">外卖：轻食沙拉 / 鸡胸饭</div>
+        <div class="meal-detail">外卖：鸡胸蔬菜沙拉（无高热沙拉汁，用橄榄油+柠檬）<br>食堂：蒸鱼 + 青菜 + 半碗米饭<br>今天少一点主食没问题</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白35g</span><span class="macro-tag carb">碳水25g</span><span class="macro-tag fat">脂12g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">下午 15:30</div>
+        <div class="meal-name">坚果 + 水果</div>
+        <div class="meal-detail">杏仁/核桃一小把（约30g）+ 苹果或橙子1个<br>休息日不需要高碳水补充</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白5g</span><span class="macro-tag carb">碳水20g</span><span class="macro-tag fat">脂10g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">晚餐 18:30</div>
+        <div class="meal-name">外卖：水煮系列</div>
+        <div class="meal-detail">外卖：水煮牛肉（减辣）或 清蒸虾 + 蔬菜<br>今天可以少吃一点，以轻为主<br>米饭控制在半碗，蛋白质别省</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白35g</span><span class="macro-tag carb">碳水25g</span><span class="macro-tag fat">脂10g</span></div>
+      </div>
+    </div>
+
+    <!-- 周五：HYROX专项日 -->
+    <div class="diet-day-panel" id="diet-day-4">
+      <span class="diet-day-type dtype-hyrox">⚡ HYROX专项日</span>
+      <div class="diet-tip">💡 最重要的训练日！全天饮食围绕训练节奏走</div>
+      <div class="meal-card">
+        <div class="meal-time">早餐 07:30</div>
+        <div class="meal-name">高碳水早餐</div>
+        <div class="meal-detail">食堂：鸡蛋2个 + 杂粮馒头2个 + 豆浆1杯<br>或：花卷 + 荷包蛋 + 小米粥<br>今天训练强度最高，主食要够</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白25g</span><span class="macro-tag carb">碳水55g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">午餐 12:00</div>
+        <div class="meal-name">食堂：全营养午餐</div>
+        <div class="meal-detail">牛肉 or 鸡肉1份 + 米饭大份 + 蔬菜2份<br>外卖：猪肉水饺（蒸的）+ 蔬菜汤<br>今天碳水放开，米饭可以1.5碗</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白40g</span><span class="macro-tag carb">碳水80g</span><span class="macro-tag fat">脂15g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">训练前1-2h（约17:00）</div>
+        <div class="meal-name">香蕉 + 能量补充</div>
+        <div class="meal-detail">香蕉1-2根 或 能量棒1条<br>距训练太近不要吃太多，会反胃</div>
+        <div class="meal-macro"><span class="macro-tag carb">碳水30g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">训练中（超60min必须）</div>
+        <div class="meal-name">电解质补充</div>
+        <div class="meal-detail">运动饮料（宝矿力/佳得乐）500ml<br>或：淡盐水 + 能量胶1包（训练后半段）</div>
+        <div class="meal-macro"><span class="macro-tag carb">碳水20g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">训练后30min内</div>
+        <div class="meal-name">快速恢复餐</div>
+        <div class="meal-detail">蛋白粉1勺 + 香蕉1根<br>或：便利店鸡蛋3个 + 全麦面包 + 牛奶<br>这一步最关键，不能省</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白30g</span><span class="macro-tag carb">碳水30g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">晚餐 20:00</div>
+        <div class="meal-name">外卖：高蛋白正餐</div>
+        <div class="meal-detail">外卖：烤鱼 or 牛肉饭 or 蒸鱼饭<br>蛋白质要充足，碳水正常<br>今天消耗大，不要刻意减热量</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白50g</span><span class="macro-tag carb">碳水45g</span><span class="macro-tag fat">脂15g</span></div>
+      </div>
+    </div>
+
+    <!-- 周六：网球（可选）日 -->
+    <div class="diet-day-panel" id="diet-day-5">
+      <span class="diet-day-type dtype-tennis">🎾 网球日（可选）</span>
+      <div class="diet-tip">💡 周末活动日，和周二网球日类似，可以稍微放松一点</div>
+      <div class="meal-card">
+        <div class="meal-time">早餐 08:30</div>
+        <div class="meal-name">周末早午餐</div>
+        <div class="meal-detail">外卖：鸡蛋三明治 + 拿铁（无糖/少糖）<br>或：便利店：饭团2个 + 茶叶蛋2个 + 豆浆<br>周末不用太严苛，正常吃</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白22g</span><span class="macro-tag carb">碳水45g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">午餐 12:30</div>
+        <div class="meal-name">外卖自由（相对放松）</div>
+        <div class="meal-detail">可以点自己喜欢的，但原则：<br>→ 有蛋白质（肉/蛋/豆腐选一种）<br>→ 有蔬菜<br>→ 主食正常，别点两份主食<br>例：煲仔饭/家常炒菜/拌面（荤素搭配）</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白35g</span><span class="macro-tag carb">碳水55g</span><span class="macro-tag fat">脂18g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">网球前30min</div>
+        <div class="meal-name">水果 / 能量棒</div>
+        <div class="meal-detail">香蕉或苹果1个即可</div>
+        <div class="meal-macro"><span class="macro-tag carb">碳水20g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">晚餐 18:30</div>
+        <div class="meal-name">外卖：烧烤 / 火锅（适量）</div>
+        <div class="meal-detail">周末可以吃一点自己喜欢的，但控制：<br>→ 烧烤：以肉串/蔬菜为主，少吃烤面筋/鸡皮<br>→ 火锅：涮肉+蔬菜，少油碟，汤不喝<br>→ 配白米饭，别喝啤酒（备赛期）</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白35g</span><span class="macro-tag carb">碳水40g</span><span class="macro-tag fat">脂20g</span></div>
+      </div>
+    </div>
+
+    <!-- 周日：休息日 -->
+    <div class="diet-day-panel" id="diet-day-6">
+      <span class="diet-day-type dtype-rest">😴 完全休息日</span>
+      <div class="diet-tip">💡 休息日：热量最低，多蔬菜多水，给身体充分恢复</div>
+      <div class="meal-card">
+        <div class="meal-time">早餐 08:30</div>
+        <div class="meal-name">轻盈早餐</div>
+        <div class="meal-detail">外卖：无糖豆浆1杯 + 鸡蛋2个 + 水果1份<br>或：酸奶1杯 + 坚果一小把 + 全麦饼干3片<br>今天不训练，早餐轻一点</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白18g</span><span class="macro-tag carb">碳水25g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">午餐 12:30</div>
+        <div class="meal-name">外卖：粤菜/清淡系</div>
+        <div class="meal-detail">推荐：白切鸡饭 / 蒸鱼饭 / 肠粉+白粥<br>今天可以点口味好一些的，但要清淡<br>粤式外卖：清蒸虾+蔬菜+半碗饭</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白30g</span><span class="macro-tag carb">碳水35g</span><span class="macro-tag fat">脂10g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">下午</div>
+        <div class="meal-name">多喝水 + 拉伸</div>
+        <div class="meal-detail">今天没有训练，可以喝点水果茶（无糖）<br>做15-20分钟静态拉伸 + 泡沫轴放松<br>可以适当喝椰子水补电解质</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">晚餐 18:30</div>
+        <div class="meal-name">外卖：日式 / 轻食</div>
+        <div class="meal-detail">外卖：日式定食（鸡肉/三文鱼+味噌汤+米饭小份）<br>或：便利店便当（卡路里控制版）<br>今天不需要太多热量，七八分饱</div>
+        <div class="meal-macro"><span class="macro-tag protein">蛋白30g</span><span class="macro-tag carb">碳水30g</span><span class="macro-tag fat">脂10g</span></div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">赛前2天（重要！只在赛前使用）</div>
+        <div class="meal-name">⚡ 碳水负荷策略</div>
+        <div class="meal-detail">赛前周五、周六（比赛在周日）：<br>→ 碳水增加到平时的1.5倍（多半碗饭）<br>→ 蛋白质正常，脂肪减少<br>→ 目的：储存更多糖原，比赛时更有力<br>赛前当天早餐：白米饭+鸡蛋，比赛前3h吃</div>
+        <div class="meal-macro"><span class="macro-tag carb">碳水+50%</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════ PAGE: WEIGHT ════════════ -->
+<div class="page" id="page-weight">
+  <div style="padding: 16px 16px 0">
+    <div class="weight-input-row">
+      <input type="number" id="weight-input" placeholder="输入体重 (kg)" step="0.1" min="50" max="120" />
+      <button onclick="addWeight()">记录</button>
+    </div>
+    <div class="weight-stats">
+      <div class="weight-stat">
+        <div class="val neutral" id="w-current">--</div>
+        <div class="lbl">当前 (kg)</div>
+      </div>
+      <div class="weight-stat">
+        <div class="val neutral" id="w-start">80.0</div>
+        <div class="lbl">起始 (kg)</div>
+      </div>
+      <div class="weight-stat">
+        <div class="val neutral" id="w-change">--</div>
+        <div class="lbl">变化 (kg)</div>
+      </div>
+      <div class="weight-stat">
+        <div class="val" style="color:var(--accent)" id="w-target">78-79</div>
+        <div class="lbl">目标 (kg)</div>
+      </div>
+    </div>
+    <canvas id="weight-chart" height="160"></canvas>
+    <div class="weight-log" id="weight-log"></div>
+  </div>
+</div>
 
 <script>
-// ── Countdown ──
+// ══════════════════════════════════════
+// NAV
+// ══════════════════════════════════════
+function switchPage(id, tab) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  tab.classList.add('active');
+  if (id === 'weight') renderWeight();
+}
+
+// ══════════════════════════════════════
+// COUNTDOWN
+// ══════════════════════════════════════
 function updateCountdown() {
   const race = new Date('2026-10-31T09:00:00+08:00');
   const now = new Date();
   const diff = race - now;
-  if (diff <= 0) {
-    document.getElementById('cd-days').textContent = '0';
-    document.getElementById('cd-hours').textContent = '0';
-    document.getElementById('cd-mins').textContent = '0';
-    return;
-  }
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins = Math.floor((diff % 3600000) / 60000);
-  document.getElementById('cd-days').textContent = days;
-  document.getElementById('cd-hours').textContent = hours;
-  document.getElementById('cd-mins').textContent = mins;
+  if (diff <= 0) { ['cd-days','cd-hours','cd-mins'].forEach(id => document.getElementById(id).textContent = '0'); return; }
+  document.getElementById('cd-days').textContent = Math.floor(diff / 86400000);
+  document.getElementById('cd-hours').textContent = Math.floor((diff % 86400000) / 3600000);
+  document.getElementById('cd-mins').textContent = Math.floor((diff % 3600000) / 60000);
 }
 updateCountdown();
 setInterval(updateCountdown, 60000);
 
-// ── Phase ──
+// ══════════════════════════════════════
+// PHASE
+// ══════════════════════════════════════
 function updatePhase() {
   const now = new Date();
-  const month = now.getMonth() + 1; // 1-12
+  const month = now.getMonth() + 1;
   const day = now.getDate();
-
-  // Phase 1: 5月-6月末
-  // Phase 2: 7月-8月末
-  // Phase 3: 9月-10月24日
-  // Phase 4: 10月25日-31日
-
   let phase = 1;
   if (month >= 7 && month <= 8) phase = 2;
   else if (month === 9 || (month === 10 && day <= 24)) phase = 3;
   else if (month === 10 && day > 24) phase = 4;
-
   const descs = {
-    1: '<strong>📘 基础期（5-6月）</strong><br>建立有氧基础、提升力量基础，习惯HYROX各站器械。重点：Zone 2跑量，跑步配速稳定在6:00-6:30/km。',
-    2: '<strong>💪 力量期（7-8月）</strong><br>加重强度，针对弱项（SkiErg、Sled、Wall Balls）专项攻坚。重点：力量训练负重增加，HYROX训练增加器械时间。',
-    3: '<strong>⚡ 专项期（9-10月初）</strong><br>模拟比赛，组合练习，提升乳酸阈值。重点：跑步+站点连续练习，目标配速5:30/km稳定输出。',
-    4: '<strong>🏁 赛前减量（10月底）</strong><br>降低训练量，保持肌肉激活。减少新刺激，充分恢复，确保比赛状态最佳。'
+    1: '<strong>📘 基础期（5-6月）</strong><br>有氧基础 + 熟悉各站器械动作。跑步配速目标：6:00-6:30/km，HYROX课重点练SkiErg技术。',
+    2: '<strong>💪 力量期（7-8月）</strong><br>私教加大负重，专攻推拉雪橇和Wall Balls短板。跑量增加，目标5:45/km。',
+    3: '<strong>⚡ 专项期（9-10月初）</strong><br>跑步+站点组合模拟训练开始。目标：跑步配速5:30/km，各站连续无停顿。',
+    4: '<strong>🏁 赛前减量（10月25日后）</strong><br>降量保状态，轻训练激活肌肉。赛前2天碳水负荷，赛前晚充分休息。'
   };
-
-  [1,2,3,4].forEach(i => {
-    const el = document.getElementById('ph'+i);
-    el.classList.toggle('active', i === phase);
-  });
+  [1,2,3,4].forEach(i => document.getElementById('ph'+i).classList.toggle('active', i === phase));
   document.getElementById('phase-desc').innerHTML = descs[phase];
 }
 updatePhase();
 
-// ── Diet Tabs ──
-function switchDiet(panel, btn) {
-  document.querySelectorAll('.diet-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.diet-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('diet-' + panel).classList.add('active');
+// Week number
+function getWeekNum() {
+  const start = new Date('2026-05-25');
+  const now = new Date();
+  return Math.max(1, Math.floor((now - start) / (7 * 86400000)) + 1);
+}
+const wn = getWeekNum();
+if (document.getElementById('week-label-home')) document.getElementById('week-label-home').textContent = '第 ' + wn + ' 周（共约22周）';
+
+// ══════════════════════════════════════
+// DIET DAY NAV
+// ══════════════════════════════════════
+function switchDietDay(idx, btn) {
+  document.querySelectorAll('.diet-day-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.diet-day-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('diet-day-' + idx).classList.add('active');
   btn.classList.add('active');
 }
+// Auto-highlight today
+(function() {
+  const d = new Date().getDay(); // 0=Sun
+  const idx = d === 0 ? 6 : d - 1; // Mon=0 ... Sun=6
+  const btns = document.querySelectorAll('.diet-day-btn');
+  btns.forEach(b => b.classList.remove('active', 'today-mark'));
+  btns[idx].classList.add('active', 'today-mark');
+  document.getElementById('diet-day-' + idx).classList.add('active');
+})();
 
-// ── Week Label ──
-function getWeekNum() {
-  const start = new Date('2026-05-26'); // 备战第1周开始（周一）
+// ══════════════════════════════════════
+// DAILY LOG
+// ══════════════════════════════════════
+const DAYS_CN = ['周日','周一','周二','周三','周四','周五','周六'];
+(function() {
   const now = new Date();
-  const diff = Math.floor((now - start) / (7 * 86400000));
-  return Math.max(1, diff + 1);
-}
-document.getElementById('week-label').textContent = '第 ' + getWeekNum() + ' 周（共约22周）';
+  document.getElementById('today-date-label').textContent = now.toLocaleDateString('zh-CN', {month:'long', day:'numeric'});
+  document.getElementById('today-day-label').textContent = DAYS_CN[now.getDay()] + ' · 记录今天的训练和饮食';
+})();
 
-// ── Weight Tracker ──
+function toggleTag(el) {
+  el.classList.toggle('selected');
+}
+
+let logs = JSON.parse(localStorage.getItem('hyrox_logs') || '[]');
+
+function submitLog() {
+  const types = [...document.querySelectorAll('.log-tag.selected')].map(t => t.dataset.val);
+  const detail = document.getElementById('log-training-detail').value.trim();
+  const breakfast = document.getElementById('log-breakfast').value.trim();
+  const lunch = document.getElementById('log-lunch').value.trim();
+  const dinner = document.getElementById('log-dinner').value.trim();
+  const snack = document.getElementById('log-snack').value.trim();
+
+  if (types.length === 0 && !detail && !breakfast && !lunch && !dinner) {
+    alert('至少填写一项内容');
+    return;
+  }
+
+  const today = new Date().toLocaleDateString('zh-CN', {month:'2-digit', day:'2-digit'});
+  const dayStr = DAYS_CN[new Date().getDay()];
+
+  // Remove duplicate today entry if exists
+  logs = logs.filter(l => l.date !== today);
+  logs.unshift({ date: today, day: dayStr, types, detail, breakfast, lunch, dinner, snack });
+  if (logs.length > 90) logs = logs.slice(0, 90);
+  localStorage.setItem('hyrox_logs', JSON.stringify(logs));
+
+  // Clear
+  document.querySelectorAll('.log-tag').forEach(t => t.classList.remove('selected'));
+  ['log-training-detail','log-breakfast','log-lunch','log-dinner','log-snack'].forEach(id => document.getElementById(id).value = '');
+
+  renderLogs();
+  alert('✅ 记录已保存！');
+}
+
+const TYPE_LABELS = { hyrox:'⚡ HYROX', upper:'💪 上肢', lower:'🦵 下肢', tennis:'🎾 网球', cardio:'🏃 有氧', rest:'😴 休息' };
+const TYPE_CLASS = { hyrox:'tb-hyrox', upper:'tb-upper', lower:'tb-lower', tennis:'tb-tennis', cardio:'tb-cardio', rest:'tb-rest' };
+
+function renderLogs() {
+  const el = document.getElementById('log-history-list');
+  if (logs.length === 0) { el.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:8px 0">暂无记录，开始你的第一次打卡吧</div>'; return; }
+  el.innerHTML = logs.slice(0, 14).map((l, i) => `
+    <div class="log-entry">
+      <div class="log-entry-header">
+        <span class="log-entry-date">${l.date} ${l.day || ''}</span>
+        <button class="log-entry-del" onclick="deleteLog(${i})">✕</button>
+      </div>
+      <div style="margin-bottom:4px">
+        ${(l.types||[]).map(t => `<span class="log-entry-type-badge ${TYPE_CLASS[t]||''}">${TYPE_LABELS[t]||t}</span>`).join('')}
+      </div>
+      ${l.detail ? `<div class="log-entry-training">🏋️ ${l.detail}</div>` : ''}
+      ${[l.breakfast&&'早：'+l.breakfast, l.lunch&&'午：'+l.lunch, l.dinner&&'晚：'+l.dinner, l.snack&&'其他：'+l.snack].filter(Boolean).map(s=>`<div class="log-entry-food">${s}</div>`).join('')}
+    </div>
+  `).join('');
+}
+
+function deleteLog(idx) {
+  if (!confirm('删除这条记录？')) return;
+  logs.splice(idx, 1);
+  localStorage.setItem('hyrox_logs', JSON.stringify(logs));
+  renderLogs();
+}
+
+renderLogs();
+
+// ══════════════════════════════════════
+// WEEKLY PLAN
+// ══════════════════════════════════════
+const DAY_NAMES = ['周一','周二','周三','周四','周五','周六','周日'];
+const DAY_PLACEHOLDERS = [
+  '例：上肢私教 胸推/划船/核心 1h',
+  '例：网球 1h + 拉伸',
+  '例：下肢私教 深蹲/硬拉/弓步 1h',
+  '例：Zone2 跑步 35min，配速6:30',
+  '例：HYROX专项 SkiErg×3组 + 跑步2km',
+  '例：网球 1h 或 休息',
+  '例：完全休息，泡沫轴放松20min',
+];
+
+let weekPlan = JSON.parse(localStorage.getItem('hyrox_week_plan') || '[]');
+if (weekPlan.length !== 7) weekPlan = Array(7).fill('');
+
+function buildPlanner() {
+  const el = document.getElementById('week-planner');
+  el.innerHTML = DAY_NAMES.map((d, i) => `
+    <div class="day-plan-row">
+      <div class="day-plan-label">${d}</div>
+      <div class="day-plan-inputs">
+        <input type="text" id="plan-day-${i}" value="${weekPlan[i]||''}" placeholder="${DAY_PLACEHOLDERS[i]}">
+      </div>
+    </div>
+  `).join('');
+}
+
+function savePlan() {
+  weekPlan = Array(7).fill(0).map((_, i) => (document.getElementById('plan-day-'+i)||{}).value || '');
+  localStorage.setItem('hyrox_week_plan', JSON.stringify(weekPlan));
+  const tip = document.getElementById('plan-saved-tip');
+  tip.style.display = 'block';
+  setTimeout(() => tip.style.display = 'none', 2000);
+}
+
+buildPlanner();
+
+// ══════════════════════════════════════
+// WEIGHT
+// ══════════════════════════════════════
 let weightData = JSON.parse(localStorage.getItem('hyrox_weight') || '[]');
-
-function saveWeight() {
-  localStorage.setItem('hyrox_weight', JSON.stringify(weightData));
-}
 
 function addWeight() {
   const val = parseFloat(document.getElementById('weight-input').value);
-  if (isNaN(val) || val < 50 || val > 120) {
-    alert('请输入合理的体重（50-120kg）');
-    return;
-  }
+  if (isNaN(val) || val < 50 || val > 120) { alert('请输入合理的体重（50-120kg）'); return; }
   const today = new Date().toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' });
-  // 如果今天已有记录，更新最新
   if (weightData.length > 0 && weightData[weightData.length-1].date === today) {
     weightData[weightData.length-1].val = val;
   } else {
-    weightData.push({ date: today, val: val });
+    weightData.push({ date: today, val });
   }
   if (weightData.length > 60) weightData = weightData.slice(-60);
-  saveWeight();
+  localStorage.setItem('hyrox_weight', JSON.stringify(weightData));
   document.getElementById('weight-input').value = '';
   renderWeight();
 }
 
 function deleteWeight(idx) {
   weightData.splice(idx, 1);
-  saveWeight();
+  localStorage.setItem('hyrox_weight', JSON.stringify(weightData));
   renderWeight();
 }
 
 let weightChart = null;
 
 function renderWeight() {
-  const stats_current = document.getElementById('w-current');
-  const stats_change = document.getElementById('w-change');
   const startVal = 80.0;
-
-  if (weightData.length === 0) {
-    stats_current.textContent = '--';
-    stats_change.textContent = '--';
-    stats_change.className = 'val neutral';
-  } else {
-    const cur = weightData[weightData.length - 1].val;
-    stats_current.textContent = cur.toFixed(1);
+  const cur = weightData.length ? weightData[weightData.length-1].val : null;
+  const statCur = document.getElementById('w-current');
+  const statChg = document.getElementById('w-change');
+  if (cur !== null) {
+    statCur.textContent = cur.toFixed(1);
     const change = +(cur - startVal).toFixed(1);
-    stats_change.textContent = (change > 0 ? '+' : '') + change;
-    stats_change.className = 'val ' + (change < 0 ? 'down' : change > 0 ? 'up' : 'neutral');
+    statChg.textContent = (change > 0 ? '+' : '') + change;
+    statChg.className = 'val ' + (change < 0 ? 'down' : change > 0 ? 'up' : 'neutral');
+  } else {
+    statCur.textContent = '--'; statChg.textContent = '--'; statChg.className = 'val neutral';
   }
 
-  // Chart
   const ctx = document.getElementById('weight-chart').getContext('2d');
+  if (weightChart) weightChart.destroy();
+
   const labels = weightData.map(d => d.date);
   const vals = weightData.map(d => d.val);
 
-  if (weightChart) weightChart.destroy();
-
-  if (weightData.length === 0) {
-    // Empty chart placeholder
-    weightChart = new Chart(ctx, {
-      type: 'line',
-      data: { labels: ['暂无数据'], datasets: [{ data: [80], borderColor: '#333', pointRadius: 0 }] },
-      options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
-    });
-  } else {
-    weightChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: '体重',
-            data: vals,
-            borderColor: '#f5a623',
-            backgroundColor: 'rgba(245,166,35,0.08)',
-            borderWidth: 2,
-            pointRadius: vals.length <= 10 ? 4 : 2,
-            pointBackgroundColor: '#f5a623',
-            tension: 0.3,
-            fill: true,
-          },
-          {
-            label: '目标',
-            data: Array(vals.length).fill(78.5),
-            borderColor: '#4caf50',
-            borderWidth: 1,
-            borderDash: [4, 4],
-            pointRadius: 0,
-            fill: false,
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: ctx => ctx.dataset.label === '目标' ? '目标: 78-79kg' : ctx.parsed.y.toFixed(1) + ' kg'
-            }
-          }
+  weightChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels.length ? labels : ['暂无'],
+      datasets: [
+        {
+          label: '体重',
+          data: vals.length ? vals : [80],
+          borderColor: '#f5a623', backgroundColor: 'rgba(245,166,35,0.08)',
+          borderWidth: 2, pointRadius: vals.length <= 10 ? 4 : 2,
+          pointBackgroundColor: '#f5a623', tension: 0.3, fill: true,
         },
-        scales: {
-          x: {
-            ticks: { color: '#666', font: { size: 11 }, maxTicksLimit: 8 },
-            grid: { color: '#1e1e1e' }
-          },
-          y: {
-            ticks: { color: '#666', font: { size: 11 } },
-            grid: { color: '#1e1e1e' },
-            suggestedMin: Math.min(...vals, 78) - 1,
-            suggestedMax: Math.max(...vals, 81) + 1,
-          }
+        {
+          label: '目标',
+          data: Array(Math.max(vals.length, 1)).fill(78.5),
+          borderColor: '#4caf50', borderWidth: 1, borderDash: [4, 4],
+          pointRadius: 0, fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label === '目标' ? '目标: 78-79kg' : ctx.parsed.y.toFixed(1) + ' kg' } }
+      },
+      scales: {
+        x: { ticks: { color: '#666', font: { size: 11 }, maxTicksLimit: 8 }, grid: { color: '#1e1e1e' } },
+        y: {
+          ticks: { color: '#666', font: { size: 11 } }, grid: { color: '#1e1e1e' },
+          suggestedMin: vals.length ? Math.min(...vals, 78) - 1 : 77,
+          suggestedMax: vals.length ? Math.max(...vals, 81) + 1 : 82,
         }
       }
-    });
-  }
+    }
+  });
 
-  // Log
   const log = document.getElementById('weight-log');
   const reversed = [...weightData].reverse();
   log.innerHTML = reversed.map((d, i) => {
     const realIdx = weightData.length - 1 - i;
-    const prev = realIdx > 0 ? weightData[realIdx - 1].val : null;
+    const prev = realIdx > 0 ? weightData[realIdx-1].val : null;
     const diff = prev !== null ? +(d.val - prev).toFixed(1) : null;
-    const diffStr = diff !== null
-      ? `<span class="wdiff ${diff < 0 ? 'down' : diff > 0 ? 'up' : ''}">${diff > 0 ? '+' : ''}${diff}</span>`
-      : '';
+    const diffStr = diff !== null ? `<span class="wdiff ${diff<0?'down':diff>0?'up':''}">${diff>0?'+':''}${diff}</span>` : '';
     return `<div class="weight-log-item">
       <span class="wdate">${d.date}</span>
       <span class="wval">${d.val.toFixed(1)} kg</span>
