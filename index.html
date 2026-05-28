@@ -291,6 +291,34 @@
     .station-train { font-size: 12px; color: #7ecfff; }
     .station-warn { font-size: 12px; color: #ffcc44; margin-top: 3px; }
 
+    /* ── Send to Xiaomen ── */
+    .send-btn {
+      width: 100%; padding: 13px; margin-top: 12px;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border: 1px solid var(--accent); border-radius: 12px;
+      color: var(--accent); font-size: 14px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .send-btn:active { opacity: 0.8; }
+    .send-copied { text-align: center; font-size: 12px; color: var(--green); margin-top: 6px; display: none; }
+
+    /* ── Weight Alert ── */
+    .weight-alert {
+      background: #2a1a00; border: 1px solid #f5a62355; border-radius: 10px;
+      padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: #ffcc88;
+      display: none;
+    }
+
+    /* ── Phase Detail ── */
+    .phase-detail { margin-top: 12px; }
+    .phase-week {
+      background: var(--card2); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+      border-left: 3px solid var(--accent);
+    }
+    .phase-week-title { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+    .phase-week-item { font-size: 12px; color: #ccc; line-height: 1.7; }
+    .phase-week-item span { color: #fff; font-weight: 600; }
+
     /* ── Footer ── */
     .footer { text-align: center; padding: 24px 0 0; color: var(--muted); font-size: 12px; }
   </style>
@@ -482,6 +510,12 @@
     </div>
   </div>
 
+  <!-- 基础期详细训练指引 -->
+  <div class="card" id="phase-detail-card">
+    <div class="card-title"><span class="icon">📘</span>本阶段训练重点</div>
+    <div id="phase-detail-content">加载中...</div>
+  </div>
+
   <div class="footer">🦞 小门制作 · 有问题随时告诉我</div>
 </div>
 
@@ -534,6 +568,8 @@
     </div>
 
     <button class="log-submit-btn" onclick="submitLog()">✅ 保存今天的记录</button>
+    <button class="send-btn" onclick="sendToXiaomen()" style="margin-top:16px">🦞 生成本周报告 · 发给小门分析</button>
+    <div class="send-copied" id="send-copied">✅ 已复制！粘贴给小门即可</div>
 
     <!-- History -->
     <div class="log-history">
@@ -840,6 +876,7 @@
 <!-- ════════════ PAGE: WEIGHT ════════════ -->
 <div class="page" id="page-weight">
   <div style="padding: 16px 16px 0">
+    <div class="weight-alert" id="weight-alert">⚠️ 连续2周体重无变化，建议检查饮食记录或适当增加有氧训练</div>
     <div class="weight-input-row">
       <input type="number" id="weight-input" placeholder="输入体重 (kg)" step="0.1" min="50" max="120" />
       <button onclick="addWeight()">记录</button>
@@ -1159,6 +1196,197 @@ function renderWeight() {
     </div>`;
   }).join('');
 }
+
+renderWeight();
+
+// ══════════════════════════════════════
+// PHASE DETAIL
+// ══════════════════════════════════════
+const PHASE_DETAILS = {
+  1: `
+    <div class="phase-detail">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">基础期核心目标：建立有氧基础 + 熟悉所有器械技术动作，不求速度，求正确。</div>
+      <div class="phase-week">
+        <div class="phase-week-title">📅 第1-3周（现在）· 适应期</div>
+        <div class="phase-week-item">🏃 <span>跑步</span>：每周1次，Zone2配速（能说话不喘），30-35min，约5km</div>
+        <div class="phase-week-item">⚡ <span>HYROX课</span>：重点熟悉SkiErg发力 + 划船节奏，每站练2-3组×30秒，不追重量</div>
+        <div class="phase-week-item">💪 <span>上肢私教</span>：请教练加入哑铃行走（Farmers Carry模拟），每次2组×40m</div>
+        <div class="phase-week-item">🦵 <span>下肢私教</span>：加入负重弓步行走，每次3组×20步，模拟Sandbag Lunges</div>
+      </div>
+      <div class="phase-week">
+        <div class="phase-week-title">📅 第4-5周 · 量增期</div>
+        <div class="phase-week-item">🏃 <span>跑步</span>：每周1-2次，5km稳定完成，目标配速6:00-6:30/km</div>
+        <div class="phase-week-item">⚡ <span>HYROX课</span>：开始做组合练习：SkiErg 500m → 跑步 500m → Rowing 500m（循环2轮）</div>
+        <div class="phase-week-item">💪 <span>上肢私教</span>：核心稳定性为重点，加入TRX或悬吊训练</div>
+        <div class="phase-week-item">🦵 <span>下肢私教</span>：深蹲增重，硬拉开始系统训练（硬拉=拉雪橇的核心力量）</div>
+      </div>
+      <div class="phase-week">
+        <div class="phase-week-title">📅 第6-8周 · 基础巩固</div>
+        <div class="phase-week-item">🏃 <span>跑步</span>：8km连续跑，配速6:00/km以内，这是进入力量期的基准测试</div>
+        <div class="phase-week-item">⚡ <span>HYROX课</span>：完整模拟训练一次（简化版）：跑1km→每站做50%量→再跑1km，感受节奏</div>
+        <div class="phase-week-item">🎾 <span>网球</span>：保持现有频率，对心肺和协调性有益，不需要刻意改变</div>
+        <div class="phase-week-item">⚖️ <span>体重</span>：通过饮食控制，目标6-8周内减0.5-1kg，不要急</div>
+      </div>
+      <div style="background:#1a2a1a;border:1px solid #2a4a2a;border-radius:10px;padding:10px 12px;font-size:12px;color:#88cc88;margin-top:4px">
+        💡 基础期最容易犯的错：把HYROX课当力量课练，追重量不追技术。这个阶段的唯一KPI是：8周后能连续跑8km。
+      </div>
+    </div>
+  `,
+  2: `
+    <div class="phase-detail">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">力量期核心目标：提升推拉雪橇 + Wall Balls专项力量，跑量同步提升至10km。</div>
+      <div class="phase-week">
+        <div class="phase-week-title">📅 7-8月整体节奏</div>
+        <div class="phase-week-item">🏃 <span>跑步</span>：每周2次，一次Zone2（6km），一次配速跑（4km×5:45/km）</div>
+        <div class="phase-week-item">⚡ <span>HYROX课</span>：重点推雪橇/拉雪橇/Wall Balls，每次做完后接跑步800m（模拟疲劳状态）</div>
+        <div class="phase-week-item">💪 <span>上肢私教</span>：哑铃行走加重至每手20-24kg，推举加入功能性动作</div>
+        <div class="phase-week-item">🦵 <span>下肢私教</span>：深蹲/硬拉为核心，配合跳跃训练提升爆发力</div>
+        <div class="phase-week-item">⚖️ <span>体重</span>：目标月减0.5kg，合计到8月底79kg左右</div>
+      </div>
+    </div>
+  `,
+  3: `
+    <div class="phase-detail">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">专项期核心目标：完整模拟比赛流程，训练疲劳状态下的执行能力。</div>
+      <div class="phase-week">
+        <div class="phase-week-title">📅 9月-10月初</div>
+        <div class="phase-week-item">⚡ <span>模拟赛</span>：每2周做一次完整模拟：1km跑×8 + 每站正常量（可减重量），记录完成时间</div>
+        <div class="phase-week-item">🏃 <span>跑步目标</span>：10km &lt; 60min，配速5:30/km能稳定维持</div>
+        <div class="phase-week-item">💊 <span>比赛策略</span>：找到自己每站的节奏感，练习「跑后立刻上器械」不停顿</div>
+        <div class="phase-week-item">⚖️ <span>体重</span>：稳定在79kg，不再减重，保证训练能量</div>
+      </div>
+    </div>
+  `,
+  4: `
+    <div class="phase-detail">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">赛前减量：保状态为主，不加新刺激。</div>
+      <div class="phase-week">
+        <div class="phase-week-title">📅 10月25日-30日</div>
+        <div class="phase-week-item">🏃 <span>周一/三</span>：轻松慢跑30min，保持肌肉激活，不喘</div>
+        <div class="phase-week-item">⚡ <span>周二</span>：HYROX器械各站轻量感受一次，每站2组×50%量</div>
+        <div class="phase-week-item">😴 <span>周四-五</span>：完全休息，多睡，多喝水，碳水负荷开始</div>
+        <div class="phase-week-item">🍚 <span>赛前当天</span>：比赛前3h吃：白米饭+鸡蛋+香蕉，不要吃陌生食物</div>
+      </div>
+    </div>
+  `
+};
+
+function updatePhaseDetail() {
+  const now = new Date();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  let phase = 1;
+  if (month >= 7 && month <= 8) phase = 2;
+  else if (month === 9 || (month === 10 && day <= 24)) phase = 3;
+  else if (month === 10 && day > 24) phase = 4;
+  const el = document.getElementById('phase-detail-content');
+  if (el) el.innerHTML = PHASE_DETAILS[phase] || '';
+}
+updatePhaseDetail();
+
+// ══════════════════════════════════════
+// SEND TO XIAOMEN
+// ══════════════════════════════════════
+function sendToXiaomen() {
+  // Get this week's logs (last 7 days)
+  const now = new Date();
+  const weekAgo = new Date(now - 7 * 86400000);
+  const weekLogs = logs.filter(l => {
+    // date format: MM/DD
+    const parts = l.date.split('/');
+    if (parts.length < 2) return false;
+    const d = new Date(now.getFullYear(), parseInt(parts[0])-1, parseInt(parts[1]));
+    return d >= weekAgo;
+  });
+
+  // Get this week's plan
+  const plan = JSON.parse(localStorage.getItem('hyrox_week_plan') || '[]');
+  const dayNames = ['周一','周二','周三','周四','周五','周六','周日'];
+  const planText = plan.map((p, i) => p ? `${dayNames[i]}：${p}` : '').filter(Boolean).join('\n');
+
+  // Get weight
+  const recentWeights = weightData.slice(-7);
+  const weightText = recentWeights.map(w => `${w.date} ${w.val}kg`).join(' / ');
+
+  // Build report
+  const weekNum = getWeekNum();
+  let report = `【HYROX备赛 第${weekNum}周 周报】\n\n`;
+
+  if (planText) {
+    report += `📅 本周计划：\n${planText}\n\n`;
+  }
+
+  if (weekLogs.length > 0) {
+    report += `📝 实际打卡记录：\n`;
+    weekLogs.forEach(l => {
+      const typeStr = (l.types||[]).map(t => TYPE_LABELS[t]||t).join('、');
+      report += `${l.date}（${l.day||''}）${typeStr}\n`;
+      if (l.detail) report += `  训练：${l.detail}\n`;
+      if (l.breakfast) report += `  早：${l.breakfast}\n`;
+      if (l.lunch) report += `  午：${l.lunch}\n`;
+      if (l.dinner) report += `  晚：${l.dinner}\n`;
+      if (l.snack) report += `  其他：${l.snack}\n`;
+    });
+    report += '\n';
+  } else {
+    report += `📝 本周暂无打卡记录\n\n`;
+  }
+
+  if (weightText) {
+    report += `⚖️ 近期体重：${weightText}\n\n`;
+  }
+
+  report += `请帮我评估本周训练质量、饮食是否符合备赛要求，并给出下周重点建议。`;
+
+  // Copy to clipboard
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(report).then(() => {
+      const tip = document.getElementById('send-copied');
+      tip.style.display = 'block';
+      setTimeout(() => tip.style.display = 'none', 3000);
+    });
+  } else {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = report;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const tip = document.getElementById('send-copied');
+    tip.style.display = 'block';
+    setTimeout(() => tip.style.display = 'none', 3000);
+  }
+}
+
+// ══════════════════════════════════════
+// WEIGHT STAGNATION ALERT
+// ══════════════════════════════════════
+function checkWeightStagnation() {
+  if (weightData.length < 4) return;
+  // Check last 14 days of data
+  const recent = weightData.slice(-14);
+  if (recent.length < 4) return;
+  const first = recent[0].val;
+  const last = recent[recent.length-1].val;
+  const change = Math.abs(last - first);
+  const alert = document.getElementById('weight-alert');
+  if (alert) {
+    // If change < 0.3kg over 14 days and still above target
+    if (change < 0.3 && last > 79.5) {
+      alert.style.display = 'block';
+    } else {
+      alert.style.display = 'none';
+    }
+  }
+}
+
+// Call after render
+const _origRenderWeight = renderWeight;
+renderWeight = function() {
+  _origRenderWeight();
+  checkWeightStagnation();
+};
 
 renderWeight();
 </script>
